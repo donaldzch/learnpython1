@@ -1,7 +1,7 @@
 __author__ = 'Donald'
 
 import xml.sax
-import AppClientConfig
+from Utils import Utils
 
 
 class SampleContentHandler(xml.sax.ContentHandler):
@@ -32,40 +32,10 @@ class SampleContentHandler(xml.sax.ContentHandler):
 
     def __handleElement(self, name):
 
-        try:
-            parserName = "%sParser" % self.__makeCapital(name)
-            parserModule = __import__(parserName)
-        except ImportError:
-            pass
-        else:
-            try:
-                parserClass1 = getattr(parserModule, parserName)
-                parserClass = getattr(parserClass1, parserName)
-            except AttributeError:
-                pass
-            else:
-                parser = parserClass()
-                xml.sax.parseString(''.join(self.subContent), parser)
-
-    def __makeCapital(self, name):
-        pieces = []
-        pieces.append(name[0].upper())
-        pieces.append(name[1:])
-        return ''.join(pieces)
-
-class AddressParser(xml.sax.ContentHandler):
-
-    def __init__(self):
-        xml.sax.ContentHandler.__init__(self)
-
-    def startElement(self, name, attrs):
-        print("startElement: " + name)
-
-    def endElement(self, name):
-        print("endElement: " + name)
-
-    def characters(self, content):
-        print("characters: " + content)
+        parserName = "%sParser" % Utils.makeFirstCapital(name)
+        parser = Utils.getClass("AppClientConfig." + parserName, parserName)
+        if parser is not None:
+            xml.sax.parseString(''.join(self.subContent), parser())
 
 
 def main(sourceFileName):

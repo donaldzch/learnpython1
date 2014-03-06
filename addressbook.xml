@@ -10,8 +10,9 @@
         <uri>http://localhost:8080/</uri>
         <uri>http://www.ea.com/</uri>
         <uri>http://nucleus_callback/</uri>
+        <uri>http://*.ea.com/</uri>
     </allowedRedirectUris>
-    <defaultRedirectUri>http://localhost/</defaultRedirectUri>
+    <defaultRedirectUri>http://donald.ea.com/1234</defaultRedirectUri>
     <defaultRedirectUriForLogout>http://localhost:8080/</defaultRedirectUriForLogout>
     <allowedScopes>
         <scope>basic.identity</scope>
