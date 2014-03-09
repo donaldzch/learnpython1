@@ -50,3 +50,18 @@ def getAppClientConfigParsers():
         else:
             parsers.append(parser)
     return parsers
+
+
+def _getTuple(data):
+    if isinstance(data, list):
+        return tuple(data)
+    elif isinstance(data, tuple):
+        return data
+    else:
+        return tuple([data])
+
+
+def containsAll(items, assets):
+    if items is None:
+        return True
+    return not set(_getTuple(items)).difference(set(_getTuple(assets)))
