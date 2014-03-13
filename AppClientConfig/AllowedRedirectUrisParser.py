@@ -1,19 +1,21 @@
 __author__ = 'Donald'
 
-import AppClientAttribute
-from urlparse import urlparse
+from __init__ import *
 import re
 
 ATTRIBUTE_URI = "uri"
 URI_REGEX_ANY = "*"
 
 
-class _AllowedRedirectUrisParser(object):
+class _AllowedRedirectUrisParser(AttributeParser):
+    attrError = ConfigError('allowedRedirectUris', 'uri')
 
-    def __init__(self, allowedUris):
+    def __init__(self, configure, allowedUris, defaultUris, attributes):
+        AttributeParser.__init__(self, configure, attributes)
         self.allowedUris = allowedUris
         self.regularUris = []
         self.regexUris = []
+        self.defaultUris = defaultUris
 
     def _getRegexUris(self):
         self.regexUris = [uri for uri in self.allowedUris if URI_REGEX_ANY in uri]
@@ -21,21 +23,20 @@ class _AllowedRedirectUrisParser(object):
             self.regexUris = map(lambda uri: uri.replace(".", "\\.").replace("?", "\\?").replace("*", ".*") + ".*",
                                  self.regexUris)
             for regexUri in self.regexUris:
+                from urlparse import urlparse
                 uriScheme = urlparse(regexUri).scheme
                 if uriScheme == "http" or uriScheme == "https":
                     pass
                 else:
-                    raise AttributeError
+                    raise ConfigError('allowedRedirectUris', regexUri)
 
     def _getRegularUris(self):
         self.regularUris = [uri for uri in self.allowedUris if URI_REGEX_ANY not in uri]
 
-    def prepare(self):
+    def _validate(self, uriName, redirectUri):
         self._getRegexUris()
         self._getRegularUris()
-        return self
 
-    def validate(self, redirectUri):
         allowed = False
         for regexUri in self.regexUris:
             if re.match(regexUri, redirectUri):
@@ -47,24 +48,19 @@ class _AllowedRedirectUrisParser(object):
                     allowed = True
                     break
         if not allowed:
-            raise AttributeError()
+            raise ConfigError(uriName, redirectUri)
+
+    def parse(self):
+        AttributeParser.parse(self)
+        for uriName, uriValue in self.defaultUris.items():
+            if uriValue is not None:
+                self._validate(uriName, uriValue)
 
 
-def _validateUri(parser, item, key):
+def parse(allowedRedirectUris, extraParams, attributes):
     try:
-        redirectUri = item[key]
+        allowedUris = allowedRedirectUris[ATTRIBUTE_URI]
     except KeyError:
         pass
     else:
-        parser.validate(redirectUri)
-
-
-def parse(appClientDict):
-    try:
-        allowedUris = appClientDict[AppClientAttribute.ALLOWED_REDIRECT_URIS][ATTRIBUTE_URI]
-    except KeyError:
-        pass
-    else:
-        parser = _AllowedRedirectUrisParser(allowedUris).prepare()
-        _validateUri(parser, appClientDict, AppClientAttribute.DEFAULT_REDIRECT_URI)
-        _validateUri(parser, appClientDict, AppClientAttribute.DEFAULT_REDIRECT_URI_FOR_LOGOUT)
+        _AllowedRedirectUrisParser(allowedRedirectUris, allowedUris, extraParams, attributes).parse()

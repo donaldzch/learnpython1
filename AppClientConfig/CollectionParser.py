@@ -4,15 +4,13 @@ from __init__ import *
 
 
 class CollectionParser():
-    collections = ()
 
-    def __init__(self, collection, key, error):
-        self.collection = collection
-        self.key = key
+    def __init__(self, collections, error):
+        self.collections = collections
         self.error = error
 
-    def parse(self):
-        if Utils.containsAll(self.collection, self.collections):
+    def parse(self, collection):
+        if Utils.containsAll(collection, self.collections):
             pass
         else:
-            raise ConfigError(self.key, self.error)
+            raise self.error

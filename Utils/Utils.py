@@ -65,3 +65,21 @@ def containsAll(items, assets):
     if items is None:
         return True
     return not set(_getTuple(items)).difference(set(_getTuple(assets)))
+
+
+def getAllDictKeys(dictItem):
+    result = []
+    if dictItem is not None:
+        for key in dictItem.keys():
+            result.extend([key])
+            if isinstance(dictItem.get(key), dict):
+                result.extend(getAllDictKeys(dictItem.get(key)))
+    return result
+
+
+if __name__ == "__main__":
+    dictItem = {'1': 1, '2': {'3': {}}}
+    keys = getAllDictKeys(dictItem)
+    dictItem = {}
+    keys = getAllDictKeys(dictItem)
+    print keys

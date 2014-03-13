@@ -5,14 +5,24 @@
     <universe>default</universe>
     <clientId>smoke_client</clientId>
     <clientSecret>secret1</clientSecret>
+    <secretExpireBy>2014-01-02</secretExpireBy>
+    <clientCertificateMappings>
+        <clientCertificateMapping>
+            <certificateSubject>123456</certificateSubject>
+            <certificateIssuer>123456</certificateIssuer>
+        </clientCertificateMapping>
+        <clientCertificateMapping>
+            <certificateSubject>123456</certificateSubject>
+            <certificateIssuer>123456</certificateIssuer>
+        </clientCertificateMapping>
+    </clientCertificateMappings>
     <allowedRedirectUris>
         <uri>http://localhost/</uri>
         <uri>http://localhost:8080/</uri>
         <uri>http://www.ea.com/</uri>
         <uri>http://nucleus_callback/</uri>
-        <uri>http://*.ea.com/</uri>
     </allowedRedirectUris>
-    <defaultRedirectUri>http://donald.ea.com/1234</defaultRedirectUri>
+    <defaultRedirectUri>http://localhost/</defaultRedirectUri>
     <defaultRedirectUriForLogout>http://localhost:8080/</defaultRedirectUriForLogout>
     <allowedScopes>
         <scope>basic.identity</scope>
@@ -68,12 +78,20 @@
         <scope>basic.migration</scope>
         <scope>bulk.identity</scope>
     </defaultScopes>
+    <reservedScopes>
+        <scope>basic.billing</scope>
+    </reservedScopes>
     <allowedResponseTypes>
         <responseType>token</responseType>
         <responseType>id_token</responseType>
         <responseType>code</responseType>
     </allowedResponseTypes>
     <allowedGrantTypes>
+        <grantType>authorization_code</grantType>
+        <grantType>exchange</grantType>
+        <grantType>refresh_token</grantType>
+        <grantType>client_credentials</grantType>
+        <grantType>password</grantType>
     </allowedGrantTypes>
     <serviceScopeMapping>
         <serviceScope>
@@ -146,8 +164,44 @@
     </allowedRegistrationSources>
 
     <defaultRegistrationSource>nexus</defaultRegistrationSource>
-
+    <allowedAuthenticationSources>
+        <authenticationSource>1234</authenticationSource>
+    </allowedAuthenticationSources>
+    <defaultAuthenticationSource>1234</defaultAuthenticationSource>
+    <allowedDisplays>
+        <displayType>console/welcome</displayType>
+    </allowedDisplays>
+    <defaultDisplay>console/welcome</defaultDisplay>
+    <defaultLocale>1234</defaultLocale>
+    <defaultTheme>pc</defaultTheme>
+    <authorizationCodeExpiration>10000tt</authorizationCodeExpiration>
+    <accessTokenExpiration>10000tt</accessTokenExpiration>
+    <refreshTokenExpiration>10000</refreshTokenExpiration>
+    <idTokenExpiration>10000</idTokenExpiration>
+    <authorizationCodeConfig>
+        <redirectUriCheck>true</redirectUriCheck>
+    </authorizationCodeConfig>
+    <passwordConfig>
+        <userIPHeaderEnabled>true</userIPHeaderEnabled>
+    </passwordConfig>
     <recaptchaDisabled>true</recaptchaDisabled>
+    <ipWhitelists>
+        <ip>192.168.1.1</ip>
+    </ipWhitelists>
+    <apiIpWhitelists>
+        <apiIpWhitelist>
+            <apiName>pid_get</apiName>
+            <apiIpWhitelistConfig>
+                <ips>
+                    <ip>10.88.1.1</ip>
+                </ips>
+            </apiIpWhitelistConfig>
+        </apiIpWhitelist>
+    </apiIpWhitelists>
+
+    <loginRequiredForAccessToken>true</loginRequiredForAccessToken>
+
+    <pointOfContacts>hello@ea.com</pointOfContacts>
 
     <psnTicketExpirationCheckDisabled>true</psnTicketExpirationCheckDisabled>
     <pidStatusCheckConfig>
@@ -160,7 +214,66 @@
             <status>ACTIVE</status>
         </allowedPersonaStatus>
     </pidStatusCheckConfig>
+    <legalDocCheckConfig>
+        <enabled>true</enabled>
+        <gameIdentifier>default</gameIdentifier>
+    </legalDocCheckConfig>
     <underageCheckConfig>
         <enabled>true</enabled>
+        <ageUpEnabled>true</ageUpEnabled>
+        <loginRequiredOnFailure>true</loginRequiredOnFailure>
+        <overrideEntitlements>
+            <entitlement>
+                <entitlementTag>123</entitlementTag>
+                <entitlementType>SUBSCRIPTIONS</entitlementType>
+                <group>123</group>
+                <productId>1234</productId>
+                <projectId>1234</projectId>
+            </entitlement>
+        </overrideEntitlements>
     </underageCheckConfig>
+    <lastAuthDateUpdateCoolDownInSeconds>300</lastAuthDateUpdateCoolDownInSeconds>
+    <deviceProfileCheckConfig>
+        <enabled>true</enabled>
+    </deviceProfileCheckConfig>
+    <entitlementCheckConfig>
+        <enabled>true</enabled>
+        <loginRequiredOnFailure>true</loginRequiredOnFailure>
+        <enforced>true</enforced>
+        <entitlements>
+            <entitlement>
+                <checkType>periodTrial</checkType>
+                <projectId>1234</projectId>
+                <productId>1234</productId>
+                <autoGrant>true</autoGrant>
+                <entitlementTag>1234</entitlementTag>
+                <entitlementType>ONLINE_ACCESS</entitlementType>
+                <group>hello</group>
+                <useManagedLifeCycle>true</useManagedLifeCycle>
+                <trialTimeInSeconds>300</trialTimeInSeconds>
+                <trialStart>2014-01-02T00:00:00</trialStart>
+                <trialEnd>2014-02-01T00:00:00</trialEnd>
+            </entitlement>
+        </entitlements>
+    </entitlementCheckConfig>
+    <preferenceOptins>
+        <optin>1234</optin>
+        <optin>12345</optin>
+    </preferenceOptins>
+    <allowedMobileLoginTypes>
+        <mobileLoginType>mobile_game_UPID</mobileLoginType>
+        <mobileLoginType>mobile_game_facebook</mobileLoginType>
+        <mobileLoginType>mobile_game_origin</mobileLoginType>
+        <mobileLoginType>origin</mobileLoginType>
+    </allowedMobileLoginTypes>
+    <twoFactorAuthenticationEnabled>true</twoFactorAuthenticationEnabled>
+    <upgradeNeededCheckConfig>
+        <enabled>true</enabled>
+    </upgradeNeededCheckConfig>
+    <linkingStatusCheckConfig>
+        <enabled>true</enabled>
+    </linkingStatusCheckConfig>
+    <externalStyleSheets>
+        <source>https:////afdasf</source>
+    </externalStyleSheets>
 </appClient>

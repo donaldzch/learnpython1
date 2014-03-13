@@ -1,15 +1,14 @@
 __author__ = 'Donald'
 
-from CollectionParser import CollectionParser
+from __init__ import *
 
 
-class _AllowedGrantTypesParser(CollectionParser):
-    collections = ("authorization_code", "refresh_token", "exchange", "password", "client_credentials")
+class _AllowedGrantTypesParser(AllowedCollectionParser):
+    allowedCollection = {"grantType": ('authorization_code', 'refresh_token', 'exchange', 'password',
+                                       'client_credentials')}
+    parserKey = 'allowedGrantTypes'
+    attrName = 'grantType'
 
-    def __init__(self, config, name, error):
-        CollectionParser.__init__(self, config and config['grantType'] or None, name, error)
 
-
-def parse(appClient):
-    print ("allowGrantTypes")
-    _AllowedGrantTypesParser(appClient["allowedGrantTypes"], 'allowedGrantTypes', 'Invalid Grant Type').parse()
+def parse(allowedGrantTypes, attributes):
+    _AllowedGrantTypesParser(allowedGrantTypes, attributes).parse()

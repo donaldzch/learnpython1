@@ -3,7 +3,7 @@ __author__ = 'Donald'
 
 class ConfigError(Exception):
 
-    def __init__(self, configuration, message):
+    def __init__(self, configuration, message='invalid'):
         self.configuration = configuration
         self.message = message
 

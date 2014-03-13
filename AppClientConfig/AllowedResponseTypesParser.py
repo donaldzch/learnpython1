@@ -3,15 +3,11 @@ __author__ = 'Donald'
 from __init__ import *
 
 
-def parse(appClient):
-    allowedResponseTypes = ("id_token", "token", "code")
-    print ("allowedResponseTypes")
-    try:
-        responseTypes = appClient["allowedResponseTypes"]["responseType"]
-    except KeyError:
-        pass
-    else:
-        if Utils.containsAll(responseTypes, allowedResponseTypes):
-            pass
-        else:
-            raise AttributeError()
+class _AllowedResponseTypesParser(AllowedCollectionParser):
+    allowedCollection = {"responseType": ('code', 'token', 'id_token')}
+    parserKey = 'allowedResponseTypes'
+    attrName = 'responseType'
+
+
+def parse(allowedResponseTypes, attributes):
+    _AllowedResponseTypesParser(allowedResponseTypes, attributes).parse()
