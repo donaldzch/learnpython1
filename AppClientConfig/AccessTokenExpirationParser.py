@@ -4,7 +4,4 @@ from __init__ import *
 
 
 def parse(accessTokenExpiration):
-    try:
-        long(accessTokenExpiration)
-    except ValueError:
-        raise ConfigError("accessTokenExpiration", "invalid expiration")
+    LongParser(accessTokenExpiration, ConfigError('accessTokenExpiration', 'invalid expiration')).parse()

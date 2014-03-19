@@ -11,16 +11,20 @@ class AllowedCollectionParser(AttributeParser):
     notAllowedMessage = 'notAllowed'
     defaultCollectionParser = None
 
-    def __init__(self, currentCollection, attributes, defaultAttrName=None, defaultCollection={}):
+    def __init__(self, currentCollection, allowedCollection={},
+                 parserKey=None, attrName=None, defaultAttrName=None, defaultCollection={}):
         self.currentCollection = currentCollection
+        self.allowedCollection = allowedCollection and allowedCollection or self.allowedCollection
+        self.parserKey = parserKey and parserKey or self.parserKey
+        self.attrName = attrName and attrName or self.attrName
         self.attrError = ConfigError(self.parserKey, self.attrName)
         self.notAllowedError = ConfigError(self.parserKey, self.notAllowedMessage)
-        AttributeParser.__init__(self, self.currentCollection, attributes)
+        AttributeParser.__init__(self, self.currentCollection, [self.attrName])
         self.attr = currentCollection and currentCollection.get(self.attrName) or None
         self.defaultAttr = defaultCollection and defaultCollection.get(defaultAttrName) or None
-        self.defaultCollectionParser = defaultCollection and CollectionParser(self.allowedCollection.get(self.attrName),
+        self.defaultCollectionParser = defaultCollection and CollectionParser(self.currentCollection.get(self.attrName),
                                                                               self.notAllowedError) or None
-        self.currentCollectionParser = currentCollection and CollectionParser(self.allowedCollection.get(self.attrName),
+        self.currentCollectionParser = currentCollection and CollectionParser(self.allowedCollection,
                                                                               self.notAllowedError) or None
 
     def parse(self):

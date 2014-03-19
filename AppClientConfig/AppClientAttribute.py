@@ -1,9 +1,6 @@
 __author__ = 'Donald'
 
 APP_CLIENT = "appClient"
-ALLOWED_REDIRECT_URIS = "allowedRedirectUris"
-DEFAULT_REDIRECT_URI = "defaultRedirectUri"
-DEFAULT_REDIRECT_URI_FOR_LOGOUT = "defaultRedirectUriForLogout"
 
 appClient = {
     #name: (module, extra params, attributes)
@@ -11,6 +8,12 @@ appClient = {
     'clientSecret': (None, None, None),
     'universe': ('UniverseParser', None, None),
     'accessTokenExpiration': ('AccessTokenExpirationParser', None, None),
+    'idTokenExpiration': ('IdTokenExpirationParser', None, None),
+    'refreshTokenExpiration': ('RefreshTokenExpirationParser', None, None),
+    'lastAuthDateUpdateCoolDownInSeconds': ('LastAuthDateUpdateCoolDownInSecondsParser', None, None),
+    'loginRequiredForAccessToken': ('LoginRequiredForAccessTokenParser', None, None),
+    'recaptchaDisabled': ('RecaptchaDisabledParser', None, None),
+    'twoFactorAuthenticationEnabled': ('TwoFactorAuthenticationEnabledParser', None, None),
     'allowedAuthenticationSources': ('AllowedAuthenticationSourcesParser',
                                      ['defaultAuthenticationSource'], 'authenticationSource'),
     'defaultAuthenticationSource': (None, None, None),
@@ -25,5 +28,31 @@ appClient = {
     'allowedScopes': ('AllowedScopesParser', ['defaultScopes'], 'scope'),
     'defaultRedirectUri': (None, None, None),
     'defaultRedirectUriForLogout': (None, None, None),
-    'apiIpWhitelists': ('ApiIpWhistlistsParser', None, [''])
+    'apiIpWhitelists': ('ApiIpWhistlistsParser', None, ['apiIpWhitelist']),
+    'authorizationCodeConfig': ('AuthorizationCodeConfigParser', None, ['redirectUriCheck']),
+    'authorizationCodeExpiration': ('AuthorizationCodeExpirationParser', None, None),
+    'authTokenAccess': ('AuthTokenAccessParser', None, ['enabled', 'scopes']),
+    'clientCertificateMappings': ('ClientCertificateMappingsParser', None, ['clientCertificateMapping']),
+    'clientCredentialsConfig': ('ClientCredentialsConfigParser', ['allowedGrantTypes'], ['pidIdState']),
+    'clientMigrationConfig': ('ClientMigrationConfigParser', None, ['enabled',
+                                                                    'allowedMigrationStatus', 'migrationClientIds']),
+    'defaultDisplay': ('DefaultDisplayParser', None, None),
+    'defaultLocale': (None, None, None),
+    'defaultTheme': (None, None, None),
+    'defaultScopes': ('DefaultScopesParser', None, ['scope']),
+    'reservedScopes': ('ReservedScopesParser', None, ['scope']),
+    'deviceProfileCheckConfig': ('DeviceProfileCheckConfigParser', None, ['enabled']),
+    'directAccessConfig': ('DirectAccessConfigParser', None, ['enabled', 'userIdState', 'scopes', 'allowIps']),
+    'logoutUris': ('LogoutUrisParser', None, ['uri']),
+    'preferenceOptins': ('PreferenceOptinsParser', None, ['optin']),
+    'externalStyleSheets': ('ExternalStyleSheetsParser', None, ['source']),
+    'ipWhitelists': ('IpWhitelistsParser', None, ['ip']),
+    'secretExpireBy': ('SecretExpireByParser', None, None),
+    'psnTicketExpirationCheckDisabled': ('PsnTicketExpirationCheckDisabledParser', None, None),
+    'pointOfContacts': (None, None, None),
+    'upgradeNeededCheckConfig': ('UpgradeNeededCheckConfigParser', None, ['enabled']),
+    'exchangeConfig': ('ExchangeConfigParser', None, ['trustedClients']),
+    'legalDocCheckConfig': ('LegalDocCheckConfigParser', None, ['enabled', 'gameIdentifier']),
+    'linkingStatusCheckConfig': ('LinkingStatusCheckConfigParser', None, ['enabled']),
+    'passwordConfig': ('PasswordConfigParser', ['allowedGrantTypes'], ['userIPHeaderEnabled'])
 }

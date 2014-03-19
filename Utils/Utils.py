@@ -67,6 +67,14 @@ def containsAll(items, assets):
     return not set(_getTuple(items)).difference(set(_getTuple(assets)))
 
 
+def getDictKeys(dictItem):
+    result = []
+    if dictItem is not None:
+        for key in dictItem.keys():
+            result.extend([key])
+    return result
+
+
 def getAllDictKeys(dictItem):
     result = []
     if dictItem is not None:

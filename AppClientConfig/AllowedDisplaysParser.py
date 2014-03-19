@@ -4,15 +4,17 @@ from __init__ import *
 
 
 class _AllowedDisplaysParser(AllowedCollectionParser):
-    allowedCollection = {'displayType': ("origin_store", "xbox360", "origin_client", "fifa_mobile",
+    allowedCollection = ("origin_store", "xbox360", "origin_client", "fifa_mobile",
                                          "web/create", "web/login", "pc/create", "pc/login", "lockbox/create",
                                          "lockbox/login", "mobile/login", "mobilegame/login", "console/welcome",
-                                         "console2/welcome")}
+                                         "console2/welcome")
     parserKey = 'allowedDisplays'
-    attrName = 'displayType'
     notAllowedMessage = 'defaultDisplay'
+
+    def __init__(self, allowedDisplays, attributes, extraParams):
+        AllowedCollectionParser.__init__(self, currentCollection=allowedDisplays, attrName=attributes[0],
+                                         defaultAttrName='defaultDisplay', defaultCollection=extraParams)
 
 
 def parse(allowedDisplays, extraParams, attributes):
-    print ('allowedDisplays')
-    _AllowedDisplaysParser(allowedDisplays, attributes, 'defaultDisplay', extraParams).parse()
+    _AllowedDisplaysParser(allowedDisplays, attributes, extraParams).parse()

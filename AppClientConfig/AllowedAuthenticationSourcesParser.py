@@ -5,13 +5,14 @@ from __init__ import *
 
 class _AllowedAuthenticationSourcesParser(AllowedCollectionParser):
     parserKey = 'allowedAuthenticationSources'
-    attrName = 'authenticationSource'
     notAllowedMessage = 'defaultAuthenticationSource'
 
     def __init__(self, authSources, extraParams, attributes):
-        self.allowedCollection = authSources
-        AllowedCollectionParser.__init__(self, authSources,
-                                         attributes, 'defaultAuthenticationSource', extraParams)
+        AllowedCollectionParser.__init__(self, currentCollection=authSources,
+                                         allowedCollection=authSources.get(attributes[0]),
+                                         attrName=attributes[0],
+                                         defaultAttrName='defaultAuthenticationSource',
+                                         defaultCollection=extraParams)
 
 
 def parse(allowedAuthSources, extraParams, attributes):

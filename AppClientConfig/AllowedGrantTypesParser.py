@@ -4,10 +4,11 @@ from __init__ import *
 
 
 class _AllowedGrantTypesParser(AllowedCollectionParser):
-    allowedCollection = {"grantType": ('authorization_code', 'refresh_token', 'exchange', 'password',
-                                       'client_credentials')}
+    allowedCollection = ('authorization_code', 'refresh_token', 'exchange', 'password', 'client_credentials')
     parserKey = 'allowedGrantTypes'
-    attrName = 'grantType'
+
+    def __init__(self, allowedGrantTypes, attributes):
+        AllowedCollectionParser.__init__(self, currentCollection=allowedGrantTypes, attrName=attributes[0])
 
 
 def parse(allowedGrantTypes, attributes):

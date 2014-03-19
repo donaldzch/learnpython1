@@ -8,3 +8,10 @@ import AppClientAttribute
 from CollectionParser import CollectionParser
 from AttributeParser import AttributeParser
 from AllowedCollectionParser import AllowedCollectionParser
+from LongParser import LongParser
+from BooleanParser import BooleanParser
+from StringParser import StringParser
+from ScopeParser import ScopeParser
+from DateTimeParser import DateTimeParser
+from SequenceParser import SequenceParser
+from ListParser import ListParser

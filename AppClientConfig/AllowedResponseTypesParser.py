@@ -4,9 +4,11 @@ from __init__ import *
 
 
 class _AllowedResponseTypesParser(AllowedCollectionParser):
-    allowedCollection = {"responseType": ('code', 'token', 'id_token')}
+    allowedCollection = ('code', 'token', 'id_token')
     parserKey = 'allowedResponseTypes'
-    attrName = 'responseType'
+
+    def __init__(self, allowedResponseTypes, attrbitues):
+        AllowedCollectionParser.__init__(self, currentCollection=allowedResponseTypes, attrName=attrbitues[0])
 
 
 def parse(allowedResponseTypes, attributes):

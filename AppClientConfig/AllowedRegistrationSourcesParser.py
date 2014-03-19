@@ -5,15 +5,14 @@ from __init__ import *
 
 class _AllowedRegistrationSourcesParser(AllowedCollectionParser):
     parserKey = 'allowedRegistrationSources'
-    attrName = 'registrationSource'
     notAllowedMessage = 'defaultRegistrationSource'
 
     def __init__(self, registrationSources, extraParams, attributes):
-        self.allowedCollection = registrationSources
-        AllowedCollectionParser.__init__(self, registrationSources,
-                                         attributes, 'defaultRegistrationSource', extraParams)
+        AllowedCollectionParser.__init__(self, currentCollection=registrationSources,
+                                         allowedCollection=registrationSources.get(attributes[0]),
+                                         attrName=attributes[0],
+                                         defaultAttrName='defaultRegistrationSource', defaultCollection=extraParams)
 
 
 def parse(allowedRegistrationSources, extraParams, attributes):
-    print ('allowedRegistrationSources')
     _AllowedRegistrationSourcesParser(allowedRegistrationSources, extraParams, attributes).parse()
