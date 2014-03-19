@@ -4,4 +4,4 @@ from __init__ import *
 
 
 def parse(idTokenExpiration):
-    LongParser(idTokenExpiration, ConfigError('idTokenExpiration', 'invalid expiration')).parse()
+    LongParser(idTokenExpiration, 'idTokenExpiration').parse()

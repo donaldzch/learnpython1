@@ -8,8 +8,9 @@ class SequenceParser(AttributeParser):
     #attr: (parser, mandatory, extraParam)
     sequence = {}
 
-    def __init__(self, configure, attributes):
-        AttributeParser.__init__(self, configure, attributes, ConfigError(self.parserKey))
+    def __init__(self, configure, attributes={}):
+        self.attributes = attributes and attributes or Utils.getDictKeys(self.sequence)
+        AttributeParser.__init__(self, configure, self.attributes, self.parserKey)
 
     def parse(self):
         AttributeParser.parse(self)
@@ -25,21 +26,20 @@ class SequenceParser(AttributeParser):
             self._getParser(attr, self.configure.get(attr), parser, extraParam).parse()
 
     def _getParser(self, attrName, attrValue, parser, extraParam):
-        error = ConfigError(self.parserKey, 'invalid ' + attrName)
-        if parser.__name__ == BooleanParser.__name__:
-            return BooleanParser(attrValue, error)
-        elif parser.__name__ == LongParser.__name__:
-            return LongParser(attrValue, error)
-        elif parser.__name__ == DateTimeParser.__name__:
-            return DateTimeParser(attrValue, error)
+        if issubclass(parser, BasicParser):
+            return parser(attrValue, attrName)
         elif parser.__name__ == ScopeParser.__name__:
-            return ScopeParser(self.parserKey, attrValue)
+            return ScopeParser(attrName, attrValue)
         elif parser.__name__ == AttributeParser.__name__:
-            return AttributeParser(attrValue, extraParam, error)
+            return AttributeParser(attrValue, extraParam, attrName)
         elif parser.__name__ == AllowedCollectionParser.__name__:
             return AllowedCollectionParser(attrValue, extraParam.get('allowedCollection'),
-                                           self.parserKey, extraParam.get('attrName'))
-        elif parser.__name__ == StringParser.__name__:
-            return StringParser(attrValue, error)
+                                           attrName, extraParam.get('attrName'))
+        elif parser.__name__ == CollectionParser.__name__:
+            return CollectionParser(attrValue, extraParam.get('collections'), attrName)
+        elif issubclass(parser, SequenceParser):
+            return parser(attrValue, extraParam)
+        elif issubclass(parser, ListParser):
+            return parser(attrValue, extraParam)
         else:
             raise ConfigError("unknown parser", parser.__name__)

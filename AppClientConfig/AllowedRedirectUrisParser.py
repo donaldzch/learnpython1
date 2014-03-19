@@ -8,7 +8,7 @@ URI_REGEX_ANY = "*"
 
 
 class _AllowedRedirectUrisParser(AttributeParser):
-    attrError = ConfigError('allowedRedirectUris', 'uri')
+    parserKey = 'allowedRedirectUris'
 
     def __init__(self, configure, allowedUris, defaultUris, attributes):
         AttributeParser.__init__(self, configure, attributes)

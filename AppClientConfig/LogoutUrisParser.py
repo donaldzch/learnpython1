@@ -8,9 +8,5 @@ __author__ = 'Donald'
 from __init__ import *
 
 
-class _LogoutUrisParser(AttributeParser):
-    attrError = ConfigError('logoutUris')
-
-
 def parse(logoutUris, attributes):
-    _LogoutUrisParser(logoutUris, attributes).parse()
+    AttributeParser(logoutUris, attributes, 'logoutUris').parse()

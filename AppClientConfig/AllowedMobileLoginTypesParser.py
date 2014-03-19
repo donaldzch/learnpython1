@@ -4,7 +4,8 @@ from __init__ import *
 
 
 class _AllowedMobileLoginTypesParser(AllowedCollectionParser):
-    allowedCollection = ('mobile_game_UPID', 'mobile_game_facebook', 'mobile_game_origin')
+    allowedCollection = ('origin', 'mobile_game_UPID', 'mobile_game_facebook', 'mobile_game_origin',
+                         'mobile_game_game_center', 'mobile_game_google_plus')
     parserKey = 'allowedMobileLoginTypes'
 
     def __init__(self, allowedMobileLoginTypes, attributes):

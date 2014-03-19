@@ -16,25 +16,6 @@ from __init__ import *
 """
 
 
-class _ApiIpWhitelistsParser(ListParser):
-
-    def __init__(self, apiIpWhitelists, attributes):
-        ListParser.__init__(self, listConfig=apiIpWhitelists, attributes=attributes,
-                            parser=_ApiIpWhitelistParser, parserAttr=['apiName', 'apiIpWhitelistConfig'])
-
-
-class _ApiIpWhitelistParser(SequenceParser):
-    sequence = {
-        'apiName': (StringParser, True, None),
-        'apiIpWhitelistConfig': (None, True, None)
-    }
-    parserKey = 'apiIpWhitelist'
-
-    def parse(self):
-        SequenceParser.parse(self)
-        _ApiIpWhitelistConfigParser(self.configure.get('apiIpWhitelistConfig'), ['ips']).parse()
-
-
 class _ApiIpWhitelistConfigParser(SequenceParser):
     sequence = {
         'ips': (AttributeParser, True, ['ip'])
@@ -42,5 +23,20 @@ class _ApiIpWhitelistConfigParser(SequenceParser):
     parserKey = 'apiIpWhitelistConfig'
 
 
+class _ApiIpWhitelistParser(SequenceParser):
+    sequence = {
+        'apiName': (StringParser, True, None),
+        'apiIpWhitelistConfig': (_ApiIpWhitelistConfigParser, True, ['ips'])
+    }
+    parserKey = 'apiIpWhitelist'
+
+
+class _ApiIpWhitelistsParser(ListParser):
+
+    def __init__(self, apiIpWhitelists, attributes):
+        ListParser.__init__(self, listConfig=apiIpWhitelists, attributes=attributes,
+                            parser=_ApiIpWhitelistParser)
+
+
 def parse(apiIpWhitelists, attributes):
-    _ApiIpWhitelistParser(apiIpWhitelists, attributes).parse()
+    _ApiIpWhitelistsParser(apiIpWhitelists, attributes).parse()

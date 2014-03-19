@@ -10,4 +10,4 @@ from __init__ import *
 
 
 def parse(ipWhitelists, attributes):
-    AttributeParser(ipWhitelists, attributes, ConfigError('ipWhitelists')).parse()
+    AttributeParser(ipWhitelists, attributes, 'ipWhitelists').parse()

@@ -4,4 +4,4 @@ from __init__ import *
 
 
 def parse(reservedScopes, attributes):
-    ScopeParser('reservedScopes', reservedScopes, attributes).parse()
+    ScopeParser('reservedScopes', reservedScopes).parse()

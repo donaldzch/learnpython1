@@ -174,8 +174,8 @@
     <defaultDisplay>console/welcome</defaultDisplay>
     <defaultLocale>1234</defaultLocale>
     <defaultTheme>pc</defaultTheme>
-    <authorizationCodeExpiration>10000tt</authorizationCodeExpiration>
-    <accessTokenExpiration>10000tt</accessTokenExpiration>
+    <authorizationCodeExpiration>10000</authorizationCodeExpiration>
+    <accessTokenExpiration>10000</accessTokenExpiration>
     <refreshTokenExpiration>10000</refreshTokenExpiration>
     <idTokenExpiration>10000</idTokenExpiration>
     <authorizationCodeConfig>
@@ -268,10 +268,10 @@
     </allowedMobileLoginTypes>
     <twoFactorAuthenticationEnabled>true</twoFactorAuthenticationEnabled>
     <upgradeNeededCheckConfig>
-        <enabled>true1</enabled>
+        <enabled>true</enabled>
     </upgradeNeededCheckConfig>
     <linkingStatusCheckConfig>
-        <enabled>true1</enabled>
+        <enabled>true</enabled>
     </linkingStatusCheckConfig>
     <externalStyleSheets>
         <source>https:////afdasf</source>

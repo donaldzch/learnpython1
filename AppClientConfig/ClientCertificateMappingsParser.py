@@ -16,21 +16,20 @@ __author__ = 'Donald'
 from __init__ import *
 
 
-class _ClientCertificateMappings(ListParser):
-    parserKey = 'clientCertificateMapping'
-
-    def __init__(self, mappings, attributes):
-        ListParser.__init__(self, listConfig=mappings, attributes=attributes,
-                            parser=_ClientCertificateMapping, parserAttr=['certificateSubject', 'certificateIssuer'])
-
-
-class _ClientCertificateMapping(SequenceParser):
+class _ClientCertificateMappingParser(SequenceParser):
     parserKey = 'clientCertificateMapping'
     sequence = {
         'certificateSubject': (StringParser, True, None),
         'certificateIssuer': (StringParser, True, None)
     }
 
+
+class _ClientCertificateMappings(ListParser):
+    parserKey = 'clientCertificateMapping'
+
+    def __init__(self, mappings, attributes):
+        ListParser.__init__(self, listConfig=mappings, attributes=attributes,
+                            parser=_ClientCertificateMappingParser)
 
 def parse(clientCertificateMappings, attributes):
     _ClientCertificateMappings(clientCertificateMappings, attributes).parse()

@@ -4,4 +4,4 @@ from __init__ import *
 
 
 def parse(psnTicketExpirationCheckDisabled):
-    BooleanParser(psnTicketExpirationCheckDisabled, ConfigError('psnTicketExpirationCheckDisabled')).parse()
+    BooleanParser(psnTicketExpirationCheckDisabled, 'psnTicketExpirationCheckDisabled').parse()

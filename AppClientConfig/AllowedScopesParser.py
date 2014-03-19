@@ -4,12 +4,13 @@ from __init__ import *
 
 
 class _AllowedScopesParser(AllowedCollectionParser):
-    allowedCollection = ('code', 'token', 'id_token')
     parserKey = 'allowedScopes'
 
     def __init__(self, allowedScopes, attributes, defaultScopesCollection):
         defaultScopes = defaultScopesCollection and defaultScopesCollection.get('defaultScopes') or None
-        AllowedCollectionParser.__init__(self, currentCollection=allowedScopes, attrName=attributes[0],
+        AllowedCollectionParser.__init__(self, currentCollection=allowedScopes,
+                                         allowedCollection=ALLOWED_SCOPES_COLLECTIONS,
+                                         attrName=attributes[0],
                                          defaultAttrName='scope', defaultCollection=defaultScopes)
 
 

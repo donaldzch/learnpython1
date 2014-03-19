@@ -9,27 +9,23 @@ __author__ = 'Donald'
 from __init__ import *
 
 
-class _PidIdState(CollectionParser):
-    def __init__(self, value):
-        CollectionParser.__init__(self, ('anyone', 'no_one'), ConfigError('ClientCredentialsConfig', 'invalid pidIdState'))
-        self.collection = value
+class _ClientCredentialsConfigParser(SequenceParser):
+    parserKey = 'clientCredentialsConfig'
 
-    def parse(self):
-        CollectionParser.parse(self, self.collection)
-
-
-class _ClientCredentialsConfigParser(AttributeParser):
-    attrError = ConfigError('ClientCredentialsConfig', 'invalid pidIdState')
-    grantTypeError = ConfigError('clientCredentialsConfig', 'miss client_credentials')
+    sequence = {
+        'pidIdState': (CollectionParser, True, {'collections': ('anyone', 'no_one')})
+    }
 
     def __init__(self, config, extraParams, attributes):
-        AttributeParser.__init__(self, config, attributes)
-        self.grantTypes = extraParams.get('allowedGrantTypes')
+        SequenceParser.__init__(self, config, attributes)
+        self.grantTypeParser = CollectionParser(collection='client_credentials',
+                                                collections=extraParams.get('allowedGrantTypes').get('grantType'),
+                                                parserKey=self.parserKey,
+                                                errorMsg='missing client_credentials grant type')
 
     def parse(self):
-        AttributeParser.parse(self)
-        _PidIdState(self.configure.get('pidIdState')).parse()
-        CollectionParser(self.grantTypes.get('grantType'), self.grantTypeError).parse('client_credentials')
+        SequenceParser.parse(self)
+        self.grantTypeParser.parse()
 
 
 def parse(clientCredentialsConfig, extraParams, attributes):

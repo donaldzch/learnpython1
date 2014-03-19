@@ -4,4 +4,4 @@ from __init__ import *
 
 
 def parse(lastAuthDateUpdateCoolDown):
-    LongParser(lastAuthDateUpdateCoolDown, ConfigError('lastAuthDateUpdateCoolDown', 'invalid expiration')).parse()
+    LongParser(lastAuthDateUpdateCoolDown, 'lastAuthDateUpdateCoolDown').parse()

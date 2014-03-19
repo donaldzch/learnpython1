@@ -9,4 +9,4 @@ from __init__ import *
 
 
 def parse(preferenceOptins, attributes):
-    AttributeParser(preferenceOptins, attributes, ConfigError('preferenceOptins', 'invalid optin')).parse()
+    AttributeParser(preferenceOptins, attributes, 'preferenceOptins').parse()

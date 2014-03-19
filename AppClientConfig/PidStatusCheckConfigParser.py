@@ -19,5 +19,14 @@ class _PidStatusCheckConfigParser(SequenceParser):
     sequence = {
         'enabled': (BooleanParser, True, None),
         'loginRequiredOnFailure': (BooleanParser, True, None),
-        'allowedUserStatus': (AllowedCollectionParser, True, )
+        'allowedUserStatus': (AllowedCollectionParser, True, {'allowedCollection': ('ACTIVE', 'CHILD_APPROVED',
+                                                                                    'CHILD_PENDING', 'PENDING',
+                                                                                    'DISABLED', 'BANNED'),
+                                                              'attrName': 'status'}),
+        'allowedPersonaStatus': (AllowedCollectionParser, True, {'allowedCollection': ('ACTIVE', 'PENDING', 'BANNED'),
+                                                                 'attrName': 'status'})
     }
+
+
+def parse(pidStatusCheckConfig, attributes):
+    _PidStatusCheckConfigParser(pidStatusCheckConfig, attributes).parse()

@@ -5,12 +5,8 @@ from __init__ import *
 from datetime import datetime
 
 
-class DateTimeParser(object):
-    error = ConfigError('dateTimeAttribute', 'invalid')
-
-    def __init__(self, variable, error):
-        self.var = variable
-        self.error = error
+class DateTimeParser(BasicParser):
+    parserKey = 'DateTimeParser'
 
     def parse(self):
         try:

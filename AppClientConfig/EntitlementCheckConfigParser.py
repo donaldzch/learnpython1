@@ -20,3 +20,45 @@ __author__ = 'Donald'
             </entitlement>
         </entitlements>
 """
+
+from __init__ import *
+
+
+class _EntitlementParser(SequenceParser):
+    parserKey = 'entitlement'
+
+    sequence = {
+        'checkType': (CollectionParser, False, {'collections': ('periodTrial')}),
+        'projectId': (LongParser, False, None),
+        'productId': (LongParser, False, None),
+        'autoGrant': (BooleanParser, False, None),
+        'entitlementTag': (StringParser, False, None),
+        'entitlementType': (CollectionParser, False, {'collections': ('ONLINE_ACCESS')}),
+        'group': (StringParser, False, None),
+        'useManagedLifeCycle': (BooleanParser, False, None),
+        'trialTimeInSeconds': (LongParser, False, None),
+        'trialStart': (DateTimeParser, False, None),
+        'trialEnd': (DateTimeParser, False, None)
+    }
+
+
+class _EntitlementsParser(ListParser):
+    parserKey = 'entitlements'
+
+    def __init__(self, entitlements, attributes):
+        ListParser.__init__(self, listConfig=entitlements, attributes=attributes, parser=_EntitlementParser)
+
+
+class _EntitlementCheckConfigParser(SequenceParser):
+    parserKey = 'entitlementCheckConfigParser'
+
+    sequence = {
+        'enabled': (BooleanParser, True, None),
+        'loginRequiredOnFailure': (BooleanParser, False, None),
+        'enforced': (BooleanParser, False, None),
+        'entitlements': (_EntitlementsParser, False, ['entitlement'])
+    }
+
+
+def parse(entitlementCheckConfig, attributes):
+    _EntitlementCheckConfigParser(entitlementCheckConfig, attributes).parse()

@@ -10,4 +10,4 @@ from __init__ import *
 
 
 def parse(externalStyleSheets, attributes):
-    AttributeParser(externalStyleSheets, attributes, ConfigError('externalStyleSheets')).parse()
+    AttributeParser(externalStyleSheets, attributes, 'externalStyleSheets').parse()

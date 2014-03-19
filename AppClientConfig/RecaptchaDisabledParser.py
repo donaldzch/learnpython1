@@ -4,4 +4,4 @@ from __init__ import *
 
 
 def parse(recaptchaDisabled):
-    BooleanParser(recaptchaDisabled, ConfigError('recaptchaDisabled'))
+    BooleanParser(recaptchaDisabled, 'recaptchaDisabled').parse()

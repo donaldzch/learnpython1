@@ -3,12 +3,8 @@ __author__ = 'DonaldZhu'
 from __init__ import *
 
 
-class StringParser(object):
-    error = ConfigError('StringParser', 'invalid')
-
-    def __init__(self, variable, error):
-        self.var = variable
-        self.error = error
+class StringParser(BasicParser):
+    parserKey = 'StringParser'
 
     def parse(self):
         if isinstance(self.var, str) or isinstance(self.var, unicode):

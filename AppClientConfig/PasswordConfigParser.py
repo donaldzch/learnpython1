@@ -17,12 +17,14 @@ class _PasswordConfigParser(SequenceParser):
 
     def __init__(self, configure, attributes, extraParams):
         SequenceParser.__init__(self, configure, attributes)
-        self.grantTypeParser = CollectionParser(extraParams.get('allowedGrantTypes').get('grantType'),
-                                                ConfigError('passwordConfig', 'missing password grant type'))
+        self.grantTypeParser = CollectionParser(collection='password',
+                                                collections=extraParams.get('allowedGrantTypes').get('grantType'),
+                                                parserKey='passwordConfig',
+                                                errorMsg='missing password grant type')
 
     def parse(self):
         SequenceParser.parse(self)
-        self.grantTypeParser.parse('password')
+        self.grantTypeParser.parse()
 
 
 def parse(passwordConfig, extraParams, attributes):

@@ -3,12 +3,8 @@ __author__ = 'DonaldZhu'
 from __init__ import *
 
 
-class BooleanParser(object):
-    error = ConfigError('booleanParser', 'invalid')
-
-    def __init__(self, variable, error):
-        self.var = variable
-        self.error = error
+class BooleanParser(BasicParser):
+    parserKey = 'BooleanParser'
 
     def parse(self):
         try:

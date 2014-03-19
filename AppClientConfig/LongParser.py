@@ -3,12 +3,8 @@ __author__ = 'DonaldZhu'
 from __init__ import *
 
 
-class LongParser(object):
-    error = ConfigError('longAttribute', 'invalid')
-
-    def __init__(self, variable, error):
-        self.var = variable
-        self.error = error
+class LongParser(BasicParser):
+    parserKey = 'LongParser'
 
     def parse(self):
         try:

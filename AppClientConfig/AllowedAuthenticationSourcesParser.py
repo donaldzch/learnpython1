@@ -16,5 +16,4 @@ class _AllowedAuthenticationSourcesParser(AllowedCollectionParser):
 
 
 def parse(allowedAuthSources, extraParams, attributes):
-    print ('allowedAuthenticationSources')
     _AllowedAuthenticationSourcesParser(allowedAuthSources, extraParams, attributes).parse()
