@@ -46,8 +46,8 @@ class _UnderageCheckConfig(SequenceParser):
 
     sequence = {
         'enabled': (BooleanParser, True, None),
-        'ageUpEnabled': (BooleanParser, True, None),
-        'loginRequiredOnFailure': (BooleanParser, True, None),
+        'ageUpEnabled': (BooleanParser, False, None),
+        'loginRequiredOnFailure': (BooleanParser, False, None),
         'overrideEntitlements': (_OverrideEntitlements, False, ['entitlement'])
     }
 

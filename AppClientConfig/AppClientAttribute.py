@@ -54,11 +54,13 @@ appClient = {
     'exchangeConfig': ('ExchangeConfigParser', None, ['trustedClients']),
     'legalDocCheckConfig': ('LegalDocCheckConfigParser', None, ['enabled', 'gameIdentifier']),
     'linkingStatusCheckConfig': ('LinkingStatusCheckConfigParser', None, ['enabled']),
-    'passwordConfig': ('PasswordConfigParser', ['allowedGrantTypes'], ['userIPHeaderEnabled']),
+    'passwordConfig': ('PasswordConfigParser', ['allowedGrantTypes'], []),
     'throttleConfigs': ('ThrottleConfigsParser', None, ['throttleConfig']),
     'serviceScopeMapping': ('ServiceScopeMappingParser', None, ['serviceScope']),
     'defaultRegistrationSource': (None, None, None),
     'pidStatusCheckConfig': ('PidStatusCheckConfigParser', None, []),
     'underageCheckConfig': ('UnderageCheckConfigParser', None, []),
-    'entitlementCheckConfig': ('EntitlementCheckConfigParser', None, [])
+    'entitlementCheckConfig': ('EntitlementCheckConfigParser', None, []),
+    'allowedPersonaNamespaces': ('AllowedPersonaNamespacesParser', None, ['namespace']),
+    'allowedEntitlementGroups': ('AllowedEntitlementGroupsParser', None, ['group'])
 }

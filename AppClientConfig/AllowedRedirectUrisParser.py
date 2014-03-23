@@ -12,7 +12,7 @@ class _AllowedRedirectUrisParser(AttributeParser):
 
     def __init__(self, configure, allowedUris, defaultUris, attributes):
         AttributeParser.__init__(self, configure, attributes)
-        self.allowedUris = allowedUris
+        self.allowedUris = isinstance(allowedUris, list) and allowedUris or [allowedUris]
         self.regularUris = []
         self.regexUris = []
         self.defaultUris = defaultUris

@@ -29,8 +29,7 @@ class _ServiceScopeParser(SequenceParser):
     parserKey = 'serviceScope'
 
     sequence = {
-        'serviceName': (CollectionParser, True, {'collections': ('service.identity', 'service.atom',
-                                                                 'service.fifa_server', 'service.orginsdk2')}),
+        'serviceName': (CollectionParser, True, {'collections': AllowedCollectionConstant.SERVICE_SCOPES}),
         'serviceScopeConfig': (AttributeParser, True, ['scopes'])
     }
 

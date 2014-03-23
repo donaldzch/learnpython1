@@ -4,11 +4,10 @@ from __init__ import *
 
 
 class _UniverseParser(CollectionParser):
-    collections = ("default", "integration", "lt", "lt-rs", "lt-sh", "production")
     parserKey = 'universe'
 
     def __init__(self, universe):
-        CollectionParser.__init__(self, universe, self.collections)
+        CollectionParser.__init__(self, universe, AllowedCollectionConstant.UNIVERSE)
 
 
 def parse(universe):

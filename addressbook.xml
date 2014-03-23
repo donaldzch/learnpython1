@@ -232,9 +232,9 @@
             </entitlement>
         </overrideEntitlements>
     </underageCheckConfig>
-    <lastAuthDateUpdateCoolDownInSeconds>300</lastAuthDateUpdateCoolDownInSeconds>
+    <lastAuthDateUpdateCoolDownInSeconds>300t</lastAuthDateUpdateCoolDownInSeconds>
     <deviceProfileCheckConfig>
-        <enabled>true</enabled>
+        <enabled>true1</enabled>
     </deviceProfileCheckConfig>
     <entitlementCheckConfig>
         <enabled>true</enabled>

@@ -30,7 +30,7 @@ class _ConfigurationParser(SequenceParser):
     sequence = {
         'unitTime': (LongParser, True, None),
         'maximumRequest': (LongParser, True, None),
-        'accessState': (CollectionParser, True, {'collections': ('allowed', 'denied', 'controlled')})
+        'accessState': (CollectionParser, True, {'collections': AllowedCollectionConstant.THROTTLE_ACCESS_STATE})
     }
 
 

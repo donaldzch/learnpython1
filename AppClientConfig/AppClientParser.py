@@ -13,13 +13,17 @@ def _getExtraParams(appClientDict, paramNames):
 
 
 def parse(appClientDict):
+    exceptions = []
+    appClientDict = appClientDict.get('appClient')
+    if appClientDict is None:
+        return 'unknown Client', ['invalid appClient']
     for key in appClientDict.keys():
         if appClientDict.get(key) is None:
             continue
         try:
             (moduleName, extraParamNames, attributes) = AppClientAttribute.appClient.get(key)
             if moduleName is not None:
-                module = Utils.getModule(moduleName)
+                module = Utils.getModule([Utils.APP_CLIENT_CONFIG, moduleName])
                 if extraParamNames is not None:
                     extraParams = _getExtraParams(appClientDict, extraParamNames)
                     if attributes is not None:
@@ -31,13 +35,8 @@ def parse(appClientDict):
                         module.parse(appClientDict.get(key), attributes)
                     else:
                         module.parse(appClientDict.get(key))
-        except TypeError as TE:
-            print "typeerror: " + key + " | " + TE.message
-        except AttributeError as AE:
-            print "attribute Error: " + key + "| " + AE.message
         except ConfigError as CE:
-            print "config error: " + key + "| " + str(CE)
-
-if __name__ == "__main__":
-    clientDict = XMLConverter.toDict(file("../addressbook.xml"))
-    parse(clientDict['appClient'])
+            exceptions.extend(["config error: " + key + " | " + str(CE)])
+        except Exception as EX:
+            exceptions.extend(["exception: " + key + " | " + EX.message])
+    return appClientDict.get('clientId'), exceptions

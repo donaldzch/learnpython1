@@ -1,6 +1,8 @@
 __author__ = 'Donald'
 
-from __init__ import *
+from Error.ConfigError import ConfigError
+from AttributeParser import AttributeParser
+from CollectionParser import CollectionParser
 
 
 class AllowedCollectionParser(AttributeParser):

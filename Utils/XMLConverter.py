@@ -26,6 +26,7 @@ class _XMLToDictHandler():
             self.visitStack.append((self.tagItem, self.tagContent))
         self.tagItem = None
         self.tagContent = None
+        self.startCharacter = True
 
     def endElement(self, tagName):
         if len(self.visitStack):
@@ -40,10 +41,14 @@ class _XMLToDictHandler():
         else:
             self.tagItem = self.tagContent = None
         self.tagDepth -= 1
+        self.startCharacter = False
 
     def characters(self, content):
-        if not self.tagContent:
-            self.tagContent = content
+        if self.startCharacter:
+            if not self.tagContent:
+                self.tagContent = content
+            else:
+                self.tagContent = self.tagContent + content
 
     def addDict(self, tagItem, tagName, tagContent):
         if tagItem is None:
@@ -74,8 +79,11 @@ def toDict(inputSource, expat=expat, **kwargs):
 
     try:
         xmlParser.ParseFile(inputSource)
-    except (TypeError, AttributeError):
-        xmlParser.ParseFile(inputSource, True)
+    except TypeError as TE:
+        print "T: " + TE.message
+    except AttributeError as AE:
+        print "A: " + AE.message
+        xmlParser.Parse(inputSource, True)
     return contentHandler.tagItem
 
 
@@ -84,6 +92,9 @@ def toJson(inputSource, indent=1, **kwargs):
     return isinstance(inputSource, dict) and json.dumps(inputSource, indent=indent) \
         or json.dumps(toDict(inputSource, **kwargs), indent=indent)
 
+
 if __name__ == '__main__':
-    jsonStr = toJson(file("../addressbook.xml"), 3)
+    import os
+    print os.stat("/Users/DonaldZhu/Desktop/appclient/default/bf4-client-kettle.xml")
+    jsonStr = toJson(file("/Users/DonaldZhu/Desktop/appclient/default/bf4-client-kettle.xml"), 3)
     print jsonStr

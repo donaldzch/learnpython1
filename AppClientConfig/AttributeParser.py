@@ -1,6 +1,7 @@
 __author__ = 'Donald'
 
-from __init__ import *
+from CollectionParser import CollectionParser
+from Utils import Utils
 
 
 class AttributeParser(CollectionParser):

@@ -1,7 +1,7 @@
 __author__ = 'DonaldZhu'
 
-from __init__ import *
 
+from BasicParser import BasicParser
 from datetime import datetime
 
 

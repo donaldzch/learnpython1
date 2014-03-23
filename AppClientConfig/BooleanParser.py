@@ -1,6 +1,6 @@
 __author__ = 'DonaldZhu'
 
-from __init__ import *
+from BasicParser import BasicParser
 
 
 class BooleanParser(BasicParser):

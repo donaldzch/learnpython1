@@ -11,7 +11,9 @@ from __init__ import *
 
 class _PasswordConfigParser(SequenceParser):
     sequence = {
-        'userIPHeaderEnabled': (BooleanParser, True, None)
+        'userIPHeaderEnabled': (BooleanParser, True, None),
+        'allowedReferers': (AttributeParser, False, ['referer']),
+        'captchaHeaderEnabled': (BooleanParser, False, None)
     }
     parserKey = 'passwordConfig'
 

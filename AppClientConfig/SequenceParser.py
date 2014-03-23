@@ -1,6 +1,13 @@
 __author__ = 'DonaldZhu'
 
-from __init__ import *
+from AttributeParser import AttributeParser
+from Utils import Utils
+from Error.ConfigError import ConfigError
+from BasicParser import BasicParser
+from ScopeParser import ScopeParser
+from ListParser import ListParser
+from AllowedCollectionParser import AllowedCollectionParser
+from CollectionParser import CollectionParser
 
 
 class SequenceParser(AttributeParser):
@@ -17,7 +24,7 @@ class SequenceParser(AttributeParser):
         for attr, (parser, mandatory, extraParam) in self.sequence.items():
             if mandatory:
                 if self.configure.get(attr) is None:
-                    raise ConfigError(self.parserKey, 'missing' + attr)
+                    raise ConfigError(self.parserKey, 'missing ' + attr)
             if parser is not None:
                 self._subParse(attr, parser, extraParam)
 

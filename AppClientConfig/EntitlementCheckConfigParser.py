@@ -28,12 +28,12 @@ class _EntitlementParser(SequenceParser):
     parserKey = 'entitlement'
 
     sequence = {
-        'checkType': (CollectionParser, False, {'collections': ('periodTrial')}),
+        'checkType': (CollectionParser, False, {'collections': AllowedCollectionConstant.ENTITLEMENT_CHECK_TYPE}),
         'projectId': (LongParser, False, None),
         'productId': (LongParser, False, None),
         'autoGrant': (BooleanParser, False, None),
         'entitlementTag': (StringParser, False, None),
-        'entitlementType': (CollectionParser, False, {'collections': ('ONLINE_ACCESS')}),
+        'entitlementType': (CollectionParser, False, {'collections': AllowedCollectionConstant.ENTITLEMENT_TYPE}),
         'group': (StringParser, False, None),
         'useManagedLifeCycle': (BooleanParser, False, None),
         'trialTimeInSeconds': (LongParser, False, None),

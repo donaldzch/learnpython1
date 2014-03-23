@@ -1,6 +1,6 @@
 __author__ = 'DonaldZhu'
 
-from __init__ import *
+from AttributeParser import AttributeParser
 
 
 class ListParser(AttributeParser):

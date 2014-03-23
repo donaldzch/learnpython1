@@ -13,7 +13,7 @@ class _ClientCredentialsConfigParser(SequenceParser):
     parserKey = 'clientCredentialsConfig'
 
     sequence = {
-        'pidIdState': (CollectionParser, True, {'collections': ('anyone', 'no_one')})
+        'pidIdState': (CollectionParser, True, {'collections': AllowedCollectionConstant.PID_ID_STATE})
     }
 
     def __init__(self, config, extraParams, attributes):

@@ -20,7 +20,7 @@ class _DirectAccessConfigParser(SequenceParser):
     parserKey = 'directAccessConfig'
     sequence = {
         'enabled': (BooleanParser, True, None),
-        'userIdState': (CollectionParser, True, {"collections": ('anyone', 'no_one')}),
+        'userIdState': (CollectionParser, True, {"collections": AllowedCollectionConstant.USER_ID_STATE}),
         'scopes': (ScopeParser, True, None),
         'allowIps': (AttributeParser, False, ['ip'])
     }
